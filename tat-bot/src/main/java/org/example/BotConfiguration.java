@@ -7,11 +7,7 @@ import java.util.List;
 
 public class BotConfiguration {
 
-//    public final String BOT_TOKEN = "5908717917:AAHqbwDSFM7s3uzSYOFemXUt_QPXQqojtwY";
-//    public final String BOT_NAME = "әкәм-төкәм";
 
-    public final String BOT_TOKEN = "6973316917:AAH2hzy6KaBi5f-bgdmByvSjON-RhSjY068";
-    public final String BOT_NAME = "әкәм-төкәм";
 
 
     // buttons names
