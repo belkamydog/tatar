@@ -1,4 +1,4 @@
-package org.example;
+package TeleBot;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
