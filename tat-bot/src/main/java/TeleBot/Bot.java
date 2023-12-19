@@ -59,7 +59,7 @@ public class Bot extends TelegramLongPollingBot {
         //send_message.enableMarkdown(true);
         send_message.enableHtml(true);
         send_message.setChatId(message.getChatId().toString());
-        send_message.setText("<b>Главное меню</b>");
+        send_message.setText(bot_conf_.MAIN_MENU_NAME);
 
         InlineKeyboardMarkup markupInline = new InlineKeyboardMarkup();
         List<List<InlineKeyboardButton>> rowsInline = new ArrayList<>();
@@ -73,21 +73,13 @@ public class Bot extends TelegramLongPollingBot {
         SendMsg(send_message);
     }
     private void MainMenu(Update update) throws TelegramApiException {
-
-        String text = """
-                <b>Header</b>
-                <a href="/Users/artemefimov/Documents/GitHub/tatarlingue/tatar/tat-bot/src/Elka-3.bmp">&#8205;</a>
-                <b>Короткое название:</b> <i>Startup</i>
-                <b>Email:</b><i>belkamygog@yandex.ru</i>
-                <b>Сайт:</b><i>elke-telke.ru</i>""";
-
         long message_id = update.getCallbackQuery().getMessage().getMessageId();
         long chat_id = update.getCallbackQuery().getMessage().getChatId();
         EditMessageText edit_message_text = new EditMessageText();
         edit_message_text.setChatId(String.valueOf(chat_id));
         edit_message_text.setMessageId((int) message_id);
         edit_message_text.enableHtml(true);
-        edit_message_text.setText(text);
+        edit_message_text.setText(bot_conf_.MAIN_MENU_NAME);
 
         InlineKeyboardMarkup markupInline = new InlineKeyboardMarkup();
         List<List<InlineKeyboardButton>> rowsInline = new ArrayList<>();
@@ -107,7 +99,7 @@ public class Bot extends TelegramLongPollingBot {
         EditMessageText edit_message_text = new EditMessageText();
         edit_message_text.setChatId(String.valueOf(chat_id));
         edit_message_text.setMessageId((int) message_id);
-        edit_message_text.setText(text_container_.ANSWER_FOR_DICTIONARY);
+        edit_message_text.setText(text_container_.DEVELOPER_PAGE);
 
         InlineKeyboardMarkup markupInline = new InlineKeyboardMarkup();
         List<List<InlineKeyboardButton>> rowsInline = new ArrayList<>();
@@ -127,7 +119,7 @@ public class Bot extends TelegramLongPollingBot {
         edit_message_text.enableHtml(true);
         edit_message_text.setChatId(String.valueOf(chat_id));
         edit_message_text.setMessageId((int) message_id);
-        edit_message_text.setText("<b>Уроки</b>");
+        edit_message_text.setText(bot_conf_.LESSONS_MENU_NAME);
 
         InlineKeyboardMarkup markupInline = new InlineKeyboardMarkup();
         List<List<InlineKeyboardButton>> rowsInline = new ArrayList<>();
@@ -144,7 +136,7 @@ public class Bot extends TelegramLongPollingBot {
         execute(edit_message_text);
         bot_conf_.lesson_page = 0;
     }
-    private void SendPic(Update update) throws TelegramApiException, FileNotFoundException {
+    private void SendPic(Update update) throws TelegramApiException {
         long message_id = update.getCallbackQuery().getMessage().getMessageId();
         long chat_id = update.getCallbackQuery().getMessage().getChatId();
         SendPhoto photo = new SendPhoto();
@@ -189,20 +181,6 @@ public class Bot extends TelegramLongPollingBot {
         return  false;
     }
 
-    private void answerTheMessage(Update update) throws TelegramApiException, FileNotFoundException {
-        String input = update.getCallbackQuery().getData();
-        if (input.equals(bot_conf_.NAME_DICT_BTN)) Dict(update);
-        else if (input.equals(bot_conf_.NAME_LESSONS_BTN)) Lessons(update);
-        else if (input.equals(bot_conf_.NAME_BACK_TO_MAIN_MENU_BTN)) MainMenu(update);
-        else if (input.equals(bot_conf_.NAME_MEM_BTN)) SendPic(update);
-
-        else if (itsNameLesson(input, bot_conf_.LESSONS_ROW_1)) DoLesson(update);
-        else if (itsNameLesson(input, bot_conf_.LESSONS_ROW_2)) DoLesson(update);
-        else if (input.equals(bot_conf_.NEXT_BTN)) PushNextBtn(update);
-        else if (input.equals(bot_conf_.BACK_BTN)) PushBackBtn(update);
-
-    }
-
     private void DoLesson(Update update) throws TelegramApiException {
         long message_id = update.getCallbackQuery().getMessage().getMessageId();
         long chat_id = update.getCallbackQuery().getMessage().getChatId();
@@ -210,6 +188,7 @@ public class Bot extends TelegramLongPollingBot {
         EditMessageText edit_message_text = new EditMessageText();
         edit_message_text.setChatId(String.valueOf(chat_id));
         edit_message_text.setMessageId((int) message_id);
+        edit_message_text.enableHtml(true);
         edit_message_text.setText(text_container_.lesson1[bot_conf_.lesson_page]);
         System.out.println(bot_conf_.lesson_page);
 
@@ -235,6 +214,7 @@ public class Bot extends TelegramLongPollingBot {
         EditMessageText edit_message_text = new EditMessageText();
         edit_message_text.setChatId(String.valueOf(chat_id));
         edit_message_text.setMessageId((int) message_id);
+        edit_message_text.enableMarkdown(true);
         edit_message_text.setText(text_container_.lesson1[bot_conf_.lesson_page]);
         System.out.println(bot_conf_.lesson_page);
 
@@ -269,4 +249,19 @@ public class Bot extends TelegramLongPollingBot {
         }
     }
 
+    private void answerTheMessage(Update update) throws TelegramApiException, FileNotFoundException {
+        String input = update.getCallbackQuery().getData();
+        if (input.equals(bot_conf_.NAME_DICT_BTN)) Dict(update);
+        else if (input.equals(bot_conf_.NAME_LESSONS_BTN)) Lessons(update);
+        else if (input.equals(bot_conf_.NAME_BACK_TO_MAIN_MENU_BTN)) MainMenu(update);
+        else if (input.equals(bot_conf_.NAME_MEM_BTN)) Dict(update);
+        else if (input.equals(bot_conf_.NAME_GRAMMAR_BTN)) Dict(update);
+        else if (input.equals(bot_conf_.NAME_MAKE_TEST_BTN)) Dict(update);
+        else if (input.equals(bot_conf_.NAME_LEVEL_TEST_BTN)) Dict(update);
+
+        else if (itsNameLesson(input, bot_conf_.LESSONS_ROW_1)) DoLesson(update);
+        else if (itsNameLesson(input, bot_conf_.LESSONS_ROW_2)) DoLesson(update);
+        else if (input.equals(bot_conf_.NEXT_BTN)) PushNextBtn(update);
+        else if (input.equals(bot_conf_.BACK_BTN)) PushBackBtn(update);
+    }
 }

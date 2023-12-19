@@ -7,7 +7,11 @@ import java.util.List;
 
 public class BotConfiguration {
 
+//    public final String BOT_TOKEN = "5908717917:AAGKaM69wXOziXAcv4I0-mTSjD_8xfGf-8M";
+//    public final String BOT_NAME = "әкәм-төкәм";
 
+    public final String BOT_TOKEN = "6973316917:AAEJPuSm8PEnw2DnS4OwryHfJdO9YJ6G060";
+    public final String BOT_NAME = "әкәм-төкәм";
 
 
     // buttons names
@@ -20,6 +24,10 @@ public class BotConfiguration {
     public final String NAME_LEVEL_TEST_BTN = "Уровень владения";
     public final String NEXT_BTN = "Вперед";
     public final String BACK_BTN = "Назад";
+
+    // Menu names
+    public final String MAIN_MENU_NAME = "<b>Главное меню</b>";
+    public final String LESSONS_MENU_NAME = "<b>Список доступных уроков</b>";
 
 
     public final String [] ROW_BTN_1 = {NAME_DICT_BTN, NAME_MAKE_TEST_BTN, NAME_GRAMMAR_BTN};
